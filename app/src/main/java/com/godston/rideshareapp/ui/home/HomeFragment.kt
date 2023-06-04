@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
-import com.godston.rideshareapp.utils.Common
 import com.godston.rideshareapp.R
 import com.godston.rideshareapp.databinding.FragmentHomeBinding
+import com.godston.rideshareapp.utils.Common
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -97,6 +97,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.createRideBtn.setOnClickListener {
+            val createRideFragment = CreateRideFragment()
+            createRideFragment.show(parentFragmentManager, "bottomSheet")
+        }
     }
 
     @SuppressLint("MissingPermission")

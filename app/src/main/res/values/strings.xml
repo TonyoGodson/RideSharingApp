@@ -13,4 +13,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_logout">Logout</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="create_ride2">Create ride</string>
+    <string name="special_message_to_the_driver">Special Message to the driver</string>
+    <string name="amount">Amount</string>
+    <string name="to">To:</string>
+    <string name="from">From:</string>
 </resources>
