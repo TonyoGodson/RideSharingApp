@@ -118,4 +118,9 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onBackPressed() {
+        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java) )
+        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        super.onBackPressed()
+    }
 }
