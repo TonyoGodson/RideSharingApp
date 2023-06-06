@@ -3,6 +3,7 @@ package com.godston.rideshareapp.ui.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -34,6 +35,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import java.io.IOException
+import java.util.*
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
@@ -157,16 +160,32 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
                     mMap.isMyLocationEnabled = true
                     mMap.uiSettings.isMyLocationButtonEnabled = true
-                    mMap.setOnMyLocationClickListener {
-                        fusedLocationProviderClient.lastLocation
-                            .addOnFailureListener { e ->
-                                Toast.makeText(context!!, e.message, Toast.LENGTH_LONG).show()
-                            }.addOnSuccessListener { location ->
-                                val userLatLng = LatLng(location.latitude, location.longitude)
-                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 18f))
+                    mMap.setOnMyLocationClickListener { location ->
+                        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                        try {
+                            val addresses = geocoder.getFromLocation(
+                                location.latitude,
+                                location.longitude,
+                                1
+                            )
+                            if (addresses.isNotEmpty()) {
+                                val address = addresses[0]
+                                val userAddress = address.getAddressLine(0)
+                                Toast.makeText(context!!, userAddress, Toast.LENGTH_LONG).show()
                             }
-                        true
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
                     }
+//                        fusedLocationProviderClient.lastLocation
+//                            .addOnFailureListener { e ->
+//                                Toast.makeText(context!!, e.message, Toast.LENGTH_LONG).show()
+//                            }.addOnSuccessListener { location ->
+//                                val userLatLng = LatLng(location.latitude, location.longitude)
+//                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, googleMap.maxZoomLevel))
+//                            }
+//                        true
+//                    }
 
                     val locationButton = (
                         mapFragment.requireView()!!

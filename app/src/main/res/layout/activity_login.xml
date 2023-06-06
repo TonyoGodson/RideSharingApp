@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6F6F6"
+    android:id="@+id/login_rlo"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -50,6 +51,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
                 android:hint="Email:"
+                android:lines="1"
+                android:inputType="textEmailAddress"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="12dp"
                 android:textColor="@color/black"
@@ -73,6 +76,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
                 android:hint="Password:"
+                android:inputType="textPassword"
+                android:lines="1"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="1dp"
                 android:textColor="@color/black"
